@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stefaan Vuylsteke — Projects</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-dark: #336075;
+    --blue-mid: #4e87a3;
+    --blue-light: #79a7be;
+    --blue-light-15: rgba(121,167,190,0.15);
+    --blue-light-25: rgba(121,167,190,0.25);
+    --blue-dark-bg: #2d5f74;
+    --text-dark: #1a2e38;
+    --text-mid: #445566;
+    --text-light: #7a9aaa;
+    --border: rgba(121,167,190,0.2);
+    --white: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f7fafc;
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--blue-dark-bg);
+    color: white;
+    padding: 2rem 0 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(51,96,117,0.3);
+  }
+
+  .header-top {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 2rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.02em;
+  }
+
+  .header-name span {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--blue-light);
+    display: block;
+    margin-top: 2px;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .btn {
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.5rem 1.1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-outline {
+    border: 1px solid rgba(255,255,255,0.4);
+    color: white;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+  .btn-solid {
+    background: white;
+    color: var(--blue-dark);
+  }
+  .btn-solid:hover { background: var(--blue-light); color: white; }
+
+  /* NAV */
+  nav {
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .nav-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-tab {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    padding: 0.85rem 1.2rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-tab:hover { color: white; }
+  .nav-tab.active {
+    color: white;
+    border-bottom-color: var(--blue-light);
+  }
+
+  /* MAIN */
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  /* CATEGORY SECTION */
+  .category {
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  .category.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .category-header {
+    margin-bottom: 2rem;
+  }
+
+  .category-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    color: var(--blue-dark);
+    margin-bottom: 0.4rem;
+  }
+
+  .category-desc {
+    font-size: 0.9rem;
+    color: var(--text-light);
+  }
+
+  /* FEATURED CASE */
+  .featured {
+    display: grid;
+    grid-template-columns: 1fr 160px;
+    gap: 2rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 12px rgba(51,96,117,0.06);
+  }
+
+  .case-company {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--blue-dark);
+    margin-bottom: 2px;
+  }
+
+  .case-role {
+    font-size: 0.78rem;
+    color: var(--blue-mid);
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+
+  .case-desc {
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: var(--blue-light-15);
+    color: var(--blue-dark);
+    border: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  .featured-right {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: flex-start;
+    padding-top: 0.25rem;
+  }
+
+  .stat {
+    background: var(--blue-light-15);
+    border-radius: 6px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+  }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--blue-dark);
+    line-height: 1.1;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    color: var(--blue-mid);
+    margin-top: 2px;
+  }
+
+  /* SUPPORTING GRID */
+  .supporting {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 12px;
+    margin-bottom: 3rem;
+  }
+
+  .support-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.1rem;
+    transition: box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .support-card:hover {
+    box-shadow: 0 4px 16px rgba(51,96,117,0.1);
+  }
+
+  .support-company {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--blue-dark);
+    margin-bottom: 2px;
+  }
+
+  .support-role {
+    font-size: 0.72rem;
+    color: var(--blue-mid);
+    margin-bottom: 8px;
+  }
+
+  .support-desc {
+    font-size: 0.8rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+    margin-bottom: 8px;
+    flex: 1;
+  }
+
+  .support-meta {
+    font-size: 0.72rem;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: auto;
+  }
+
+  .reward-badge {
+    font-size: 0.68rem;
+    background: #fff8e6;
+    color: #b8860b;
+    border: 1px solid #f0d060;
+    padding: 2px 7px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--blue-dark-bg);
+    color: white;
+    padding: 2rem;
+    margin-top: 4rem;
+  }
+
+  .footer-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-left {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .footer-left strong {
+    color: white;
+    display: block;
+    margin-bottom: 4px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .footer-link {
+    font-size: 0.82rem;
+    color: var(--blue-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .footer-link:hover { color: white; }
+  .footer-sep { color: rgba(255,255,255,0.2); }
+
+  @media (max-width: 760px) {
+    .header-top { align-items: flex-start; gap: 1rem; }
+    .header-name { flex: 1; min-width: 0; }
+    .header-actions { flex-shrink: 0; gap: 0.6rem; }
+    .btn { padding: 0.45rem 0.8rem; font-size: 0.75rem; white-space: nowrap; }
+  }
+
+  @media (max-width: 680px) {
+    header { padding-top: 1.5rem; }
+    .header-top { flex-direction: column; align-items: flex-start; padding: 0 1.25rem 1.25rem; gap: 1rem; }
+    .header-name { width: 100%; font-size: 1.35rem; }
+    .header-name span { font-size: 0.8rem; max-width: 100%; }
+    .header-actions { width: 100%; display: flex; gap: 0.75rem; }
+    .header-actions .btn { flex: 1; text-align: center; white-space: nowrap; padding: 0.55rem 0.75rem; font-size: 0.75rem; }
+    .nav-inner { padding: 0 1.25rem; }
+    .featured { grid-template-columns: 1fr; }
+    .featured-right { flex-direction: row; flex-wrap: wrap; }
+    .supporting { grid-template-columns: 1fr; }
+    .nav-tab { padding: 0.75rem 0.75rem; font-size: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="header-name">
+      Stefaan Vuylsteke
+      <span>Digital Product Experience · Customer Portal &amp; Self-Service</span>
+    </div>
+    <div class="header-actions">
+      <a href="/pv/career.html" class="btn btn-outline">Career</a>
+      <a href="Profile_THD_2026_final_PV.pdf" class="btn btn-solid" download>Download CV</a>
+    </div>
+  </div>
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-tab active" onclick="showCategory('platforms', this)">Customer Platforms</div>
+      <div class="nav-tab" onclick="showCategory('adoption', this)">Adoption &amp; Reactivation</div>
+      <div class="nav-tab" onclick="showCategory('data', this)">Data &amp; Process Management</div>
+      <div class="nav-tab" onclick="showCategory('digital', this)">Digital Experience &amp; Optimisation</div>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <!-- CUSTOMER PLATFORMS -->
+  <div class="category active" id="cat-platforms">
+    <div class="category-header">
+      <div class="category-title">Customer Platforms</div>
+      <div class="category-desc">Designing and launching customer portals and self-service platforms that drive activation, repeat usage and real adoption.</div>
+    </div>
+
+    <div class="featured">
+      <div class="featured-left">
+        <div class="case-company">Brenntag — B Connect Platform Adoption</div>
+        <div class="case-role">Customer Experience & Engagement Consultant · Europe · 2019</div>
+        <div class="case-desc">Brenntag was launching B Connect, a customer portal meant to reduce manual order handling, document requests and follow-up through individual contacts. The first concept had useful features, but customer resistance showed that adoption would not happen automatically. I analysed why clients stayed with their old habits, reprioritised the portal around real barriers and shaped a user engagement framework for onboarding, first successful use and repeat usage. We tested the approach across three different countries and adapted communication by market and company type to support the wider rollout.</div>
+        <div class="tags">
+          <span class="tag">Redesign</span>
+          <span class="tag">User Research</span>
+          <span class="tag">User Engagement</span>
+          <span class="tag">Behavior Change</span>
+        </div>
+      </div>
+      <div class="featured-right">
+        <div class="stat"><div class="stat-num">+25%</div><div class="stat-label">Activation Rate</div></div>
+        <div class="stat"><div class="stat-num">+35%</div><div class="stat-label">Satisfaction</div></div>
+        <div class="stat"><div class="stat-num">3</div><div class="stat-label">Country pilot</div></div>
+      </div>
+    </div>
+
+    <div class="supporting">
+      <div class="support-card">
+        <div class="support-company">Amadeus — Customer Portal</div>
+        <div class="support-role">Customer Segment Manager</div>
+        <div class="support-desc">Amadeus wanted a customer portal to help travel agencies use its SaaS products better. I shaped the experience around support tickets, service waiting times, product updates, release communication, customer voice, beta access and user feedback.</div>
+        <div class="support-meta">Benelux · 2019</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">Telenet — Mobile Platform</div>
+        <div class="support-role">Business & Service Designer</div>
+        <div class="support-desc">Teleroute needed stronger repeat usage across its transport marketplace. I built always-on retention flows with segmented activity updates, personalised notifications and usage triggers to reactivate users, support recurring transactions and keep customers engaged.</div>
+        <div class="support-meta">Belgium · 2019</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">Reynaers — Pro Portal</div>
+        <div class="support-role">Strategy Director</div>
+        <div class="support-desc">Reynaers redesigned its website for private customers and professionals. I researched installers and retailers, mapped needs around product data, tools, ordering, training and support, then turned them into scope, functional analysis and dev requirements.</div>
+        <div class="support-meta">Belgium · 2021</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">Samsung — MySamsung</div>
+        <div class="support-role">CRM & Marketing Automation Team Lead</div>
+        <div class="support-desc">Samsung redesigned MySamsung as a platform across business lines. I shaped onboarding and engagement so users would register, return, find product support, get setup guidance and connect with other users around their Samsung products.</div>
+        <div class="support-meta">Europe · 2014</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">TomTom — Portal Activation</div>
+        <div class="support-role">CRM & Marketing Automation Team Lead</div>
+        <div class="support-desc">TomTom's customer portal had low registration because users did not see why it mattered. Without changing the portal specs, I reshaped the value messaging, registration flow and onboarding to help customers activate and start using the platform.</div>
+        <div class="support-meta">The Netherlands · 2014</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">D'Ieteren — Dealer Platform</div>
+        <div class="support-role">CRM & Marketing Automation Team Lead</div>
+        <div class="support-desc">D'Ieteren needed smoother collaboration between central brand teams and dealers. I helped shape a dealer platform that automated campaign sign-up, asset delivery and local support, replacing manual email and fax flows with clearer central-local coordination.</div>
+        <div class="support-meta">Belgium · 2012–2014</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADOPTION & REACTIVATION -->
+  <div class="category" id="cat-adoption">
+    <div class="category-header">
+      <div class="category-title">Adoption &amp; Reactivation</div>
+      <div class="category-desc">Helping users experience real value faster, build lasting habits and return when engagement drops — through structured flows and behavioural design.</div>
+    </div>
+
+    <div class="featured">
+      <div class="featured-left">
+        <div class="case-company">SCIA — Smart Engineering</div>
+        <div class="case-role">Customer Experience & Engagement Consultant · Europe · 2021</div>
+        <div class="case-desc">SCIA needed a stronger way to attract, educate and retain civil engineers in a competitive SaaS market. I led persona research across six European countries, mapped buyer and user journeys, and helped shape Smart Engineering: a content and education programme built around the real challenges of structural engineers and heads of engineering. The programme supported acquisition through useful expert content, lead capture and nurture, while also helping prospects, demo users and customers move toward onboarding, feature adoption and a first successful project. It positioned SCIA as a helpful engineering partner, not just a software vendor.</div>
+        <div class="tags">
+          <span class="tag">Persona Research</span>
+          <span class="tag">SaaS Onboarding</span>
+          <span class="tag">Education Flows</span>
+          <span class="tag">User Adoption</span>
+          <span class="tag">Marketo</span>
+        </div>
+      </div>
+      <div class="featured-right">
+        <div class="stat"><div class="stat-num">−35%</div><div class="stat-label">Dropout demo</div></div>
+        <div class="stat"><div class="stat-num">+40%</div><div class="stat-label">Project completion</div></div>
+        <div class="stat"><div class="stat-num">6</div><div class="stat-label">EU countries</div></div>
+      </div>
+    </div>
+
+    <div class="supporting">
+      <div class="support-card">
+        <div class="support-company">Amadeus — Hotel Bookings</div>
+        <div class="support-role">Customer Segment Manager</div>
+        <div class="support-desc">Amadeus wanted to grow hotel bookings in a competitive travel platform market. I researched travel agent needs, did market analysis, shaped educational tips and built a reward mechanic that encouraged agents to book more hotels through Amadeus, first in Benelux and later in the EU.</div>
+        <div class="support-meta">Benelux · 2009</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">Wolters Kluwer — Teleroute</div>
+        <div class="support-role">Marketing Director</div>
+        <div class="support-desc">Telenet Business explored a mobile self-service portal for company telecom managers and end users. I researched existing and potential customers, mapped needs across user profiles and translated the insights into first requirements, scope and cost estimate.</div>
+        <div class="support-meta">Europe · 2015</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">Shell — Loyalty App</div>
+        <div class="support-role">Digital Engagement Consultant</div>
+        <div class="support-desc">Shell wanted customers to use its loyalty app more consistently when fueling or buying in-store. I helped shape habit-building prompts across the app, emails and service-station touchpoints, making rewards and cashback moments more visible and easier to remember.</div>
+        <div class="support-meta">Belgium · 2022</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">Proximus — Mobile Onboarding</div>
+        <div class="support-role">Business & Service Designer</div>
+        <div class="support-desc">Proximus had no mobile onboarding in place. I helped shape a post-onboarding approach with content mapping, four email themes, landing pages and a static-to-dynamic setup, moving from generic welcome content toward segmented emails based on clicks and interests.</div>
+        <div class="support-meta">Belgium · 2024</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">Philips — Alarm Fatigue</div>
+        <div class="support-role">Customer Experience & Engagement Consultant</div>
+        <div class="support-desc">Philips Healthcare needed to help nurses and patients use its nursing alarm system more effectively and reduce alarm fatigue. I helped structure alarm-management content into a clear education flow with messaging, emails and landing pages that could be reused across markets.</div>
+        <div class="support-meta">Europe · 2019</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">Maxis AI — Concierge</div>
+        <div class="support-role">Behavioral & UX Research Consultant</div>
+        <div class="support-desc">The WhatsApp-based luxury concierge needed better adoption and booking conversion. I researched use cases, mapped friction, tested prototypes and redesigned key conversations, contributing to −25% user dropouts, +70% booking conversion and +50% multiple bookings.</div>
+        <div class="support-meta">Spain · 2023</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATA & PROCESS MANAGEMENT -->
+  <div class="category" id="cat-data">
+    <div class="category-header">
+      <div class="category-title">Data &amp; Process Management</div>
+      <div class="category-desc">Building scalable marketing operations — cleaner data, smarter automation, stronger alignment between marketing and sales.</div>
+    </div>
+
+    <div class="featured">
+      <div class="featured-left">
+        <div class="case-company">Wolters Kluwer — Marketing Lead Engine</div>
+        <div class="case-role">Marketing Director · Europe · 2015</div>
+        <div class="case-desc">After a business merge, Wolters Kluwer needed a faster and more scalable way to generate leads across multiple business lines, markets and product propositions. I led the shift from fragmented, manual campaign execution to a digital lead engine built on CRM and marketing automation integration, cleaner data, lead scoring, routing, reporting and reusable campaign templates. The work connected marketing and sales more tightly, created a clearer process for lead follow-up, and made it possible to launch localized campaigns faster across countries. Instead of running isolated campaigns, the team could work with repeatable flows, shared templates, better visibility on conversion and a stronger foundation for always-on demand generation.</div>
+        <div class="tags">
+          <span class="tag">CRM Integration</span>
+          <span class="tag">Sales Alignment</span>
+          <span class="tag">Lead Routing</span>
+          <span class="tag">Campaign Templates</span>
+          <span class="tag">Selligent</span>
+          <span class="tag">Salesforce</span>
+        </div>
+      </div>
+      <div class="featured-right">
+        <div class="stat"><div class="stat-num">+300</div><div class="stat-label">Campaigns</div></div>
+        <div class="stat"><div class="stat-num">15</div><div class="stat-label">Countries</div></div>
+        <div class="stat"><div class="stat-num">+250%</div><div class="stat-label">Leads</div></div>
+      </div>
+    </div>
+
+    <div class="supporting">
+      <div class="support-card">
+        <div class="support-company">DPG Media — Behavioral Data</div>
+        <div class="support-role">Customer Experience & Lifecycle Consultant</div>
+        <div class="support-desc">DPG Media needed a stronger permission base for subscription growth across 11 brands. I helped restructure opt-in types, grow commercial permissions and combine profile data with digital behavior to identify people more likely to consider a subscription.</div>
+        <div class="support-meta">Belgium · 2020</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">Athlon — Tyre Service</div>
+        <div class="support-role">Customer Experience & Lifecycle Consultant</div>
+        <div class="support-desc">Athlon's tyre-change service created Driver Desk calls, wrong messages and manual follow-up. I helped clean data, reduce email versions and redesign driver and fleet communication with targeted emails, behavioral prompts and booking follow-up.</div>
+        <div class="support-meta">The Netherlands · 2017</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">Proximus — Fast Launch</div>
+        <div class="support-role">Customer Experience & Lifecycle Consultant</div>
+        <div class="support-desc">Proximus B2B needed marketing automation live in a complex organization. I led the Eloqua implementation, CRM integration, stakeholder alignment and first lead-generation campaigns, moving fast across teams and earning senior-level recognition.</div>
+        <div class="support-meta">Belgium · 2018</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">Omron — Lead Flow</div>
+        <div class="support-role">Customer Experience & Lifecycle Consultant</div>
+        <div class="support-desc">Omron needed one structured lead process across European markets. I helped implement Eloqua and Lead Manager, define lead scoring, campaign visibility and sales handover, so marketing could qualify leads and sales could follow up from one clear flow.</div>
+        <div class="support-meta">Europe · 2017</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">Boon Edam — Marketing PoC</div>
+        <div class="support-role">Customer Experience & Lifecycle Consultant</div>
+        <div class="support-desc">Needed to show how marketing automation could work across central and local teams. I helped build a fast PoC with reusable email and landing page templates, lead scoring, data quality checks, nurturing flows, sales alignment and global rollout logic.</div>
+        <div class="support-meta">Worldwide · 2019</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">CZ — Personalised Care</div>
+        <div class="support-role">Customer Experience & Lifecycle Consultant</div>
+        <div class="support-desc">CZ wanted to make care communication more relevant than generic newsletters. I helped shape a preference centre and targeted care emails based on customer interests. The setup lifted Caregiving open rates by 155% and Dementia click-through rates by 700%.</div>
+        <div class="support-meta">The Netherlands · 2018</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIGITAL EXPERIENCE & OPTIMISATION -->
+  <div class="category" id="cat-digital">
+    <div class="category-header">
+      <div class="category-title">Digital Experience &amp; Optimisation</div>
+      <div class="category-desc">Redesigning digital touchpoints to reduce friction, improve conversion and make the experience feel clearer and more human.</div>
+    </div>
+
+    <div class="featured">
+      <div class="featured-left">
+        <div class="case-company">McLaren — The McLaren Experience</div>
+        <div class="case-role">Customer Experience & Engagement Consultant · Europe · 2015</div>
+        <div class="case-desc">The digital customer experience needed to feel as refined as the cars themselves. McLaren's emails, landing pages and campaign communication were still too functional, too generic and too disconnected from the premium expectation of the brand. I helped redesign the communication experience around stronger content, better visual consistency and more meaningful customer moments. The work started with branded emails and landing pages, then evolved into a richer driving-event journey with online booking flows, confirmations, event details, practical updates and a mobile app. Over time, the experience grew from campaign execution into a more complete digital layer around the McLaren brand, supporting owners before and during exclusive driving experiences.</div>
+        <div class="tags">
+          <span class="tag">CX Strategy</span>
+          <span class="tag">Template Design</span>
+          <span class="tag">Campaign Management</span>
+          <span class="tag">System Integration</span>
+        </div>
+      </div>
+      <div class="featured-right">
+        <div class="stat"><div class="stat-num">68%</div><div class="stat-label">Email open rate</div></div>
+        <div class="stat"><div class="stat-num">−50%</div><div class="stat-label">Time to execute</div></div>
+        <div class="stat"><div class="stat-num">12</div><div class="stat-label">Always-on flows</div></div>
+      </div>
+    </div>
+
+    <div class="supporting">
+      <div class="support-card">
+        <div class="support-company">ONVZ — Completion Boost</div>
+        <div class="support-role">Customer Experience & Lifecycle Consultant</div>
+        <div class="support-desc">Needed companies to complete a long vitality questionnaire and see value immediately. I helped redesign the VSCAN with behavioral techniques, friction reduction, guided completion, instant results and tailored follow-up to turn completion into new leads.</div>
+        <div class="support-meta">The Netherlands · 2018</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">Proximus — Billing Service</div>
+        <div class="support-role">Business & Service Designer</div>
+        <div class="support-desc">Proximus needed to reduce late payments, repeated reminders and softcut risk. I redesigned the payment service through behavioral analysis, clearer timeframes, behavior mapping, nudged email concepts and two flows: one to support monthly payment, one to build better habits.</div>
+        <div class="support-meta">Belgium · 2024</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">Audi — MyNewAudi</div>
+        <div class="support-role">Lead CRM & Marketing Automation</div>
+        <div class="support-desc">The lead form had a high bounce ratio and felt disconnected from the emotional car-buying experience. I helped redesign it into a guided MyNewAudi experience with behavioral techniques, clearer choices, saved settings, advisor contact and test-drive to reduce drop-off and increase leads.</div>
+        <div class="support-meta">Belgium · 2024</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">DPG Media — Retention Growth</div>
+        <div class="support-role">Customer Experience & Lifecycle Consultant</div>
+        <div class="support-desc">Needed always-on retention and upsell campaigns across media brands. I built lifecycle flows with dynamic content, renewal emails, A/B testing and landing page optimisation, helping reduce subscription churn and increase upsell subscriptions.</div>
+        <div class="support-meta">Belgium · 2020</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">Beobank — Redesign Simulator</div>
+        <div class="support-role">UX Research Consultant</div>
+        <div class="support-desc">Beobank needed to redesign its car loan simulator to reduce hesitation and drop-off. I led UX research, interviews and friction mapping to understand emotional and cognitive barriers, then shaped a clearer flow that reduced the journey from 5 steps to 3 and mental friction by 70%.</div>
+        <div class="support-meta">Belgium · 2024</div>
+      </div>
+      <div class="support-card">
+        <div class="support-company">Wolters Kluwer — Test &amp; Learn</div>
+        <div class="support-role">Marketing Director</div>
+        <div class="support-desc">Wolters Kluwer needed stronger digital performance across campaigns. I built a test-and-learn culture across emails, landing pages, forms and paid media, using monthly reviews to share learnings and improve the digital experience across teams and markets.</div>
+        <div class="support-meta">Europe & US · 2015</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <strong>Stefaan Vuylsteke</strong>
+      +32 484 48 05 24 · stefaan@growthup.eu
+    </div>
+    <div class="footer-links">
+      <a href="/pv/career.html" class="footer-link">Career</a>
+      <span class="footer-sep">·</span>
+      <a href="Profile_THD_2026_final_PV.pdf" class="footer-link" download>Download CV</a>
+      <span class="footer-sep">·</span>
+      <a href="https://linkedin.com/in/stefaanvuylsteke" class="footer-link">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function showCategory(id, tab) {
+    document.querySelectorAll('.category').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('cat-' + id).classList.add('active');
+    tab.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
